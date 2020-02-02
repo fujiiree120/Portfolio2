@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'TriviaController@index');
+Route::get('/user/{trivia}', 'TriviaController@show_user_admin');
+Route::post('/user/{trivia}/create', 'TriviaController@create_trivia');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
