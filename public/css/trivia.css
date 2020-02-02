@@ -1,0 +1,63 @@
+.index-body{
+    margin-top:50px;
+}
+
+.card-title{
+    text-align:center;
+    background-color:blue;
+}
+
+article{
+
+}
+
+.trivia-card{
+    margin-bottom:30px;
+}
+
+.card-body-name{
+    display:block;
+    border-bottom: solid 1px #cfcfcf;
+    margin-bottom:5px;
+    font-size:20px;
+    font-weight:bold;
+    color:black;
+}
+.trivia-vote{
+    display:flex;
+    float:right;
+    font-size:12px;
+}
+
+.vote-up{
+    font-weight:bold;
+    color:rgb(36, 36, 209);
+}
+
+.vote-down{
+    font-weight:bold;
+    color:rgba(211, 9, 9, 0.801);
+}
+
+.vote-button{
+    font-size : 8pt;  
+    cursor : pointer;     
+    background : #ffffff;     
+    color : #7c7c7c;           
+    border : 2px solid #ffffff;    
+    border-radius : 20%;  
+}
+
+.vote-button:hover {
+    color : #ffffff;
+    background  : #9c9b9b; 
+  }
+
+.trivia-post-form{
+    padding-bottom:50px;
+}
+
+.trivia-count{
+    font-size:20px;
+    font-weight:bold;
+}
