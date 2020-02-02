@@ -1,10 +1,10 @@
 .index-body{
-    
-    display:flex;
+    margin-top:50px;
 }
 
-nav{
-    padding-right:10px;
+.card-title{
+    text-align:center;
+    background-color:blue;
 }
 
 article{
@@ -12,9 +12,17 @@ article{
 }
 
 .trivia-card{
-    margin-bottom:20px;
+    margin-bottom:30px;
 }
 
+.card-body-name{
+    display:block;
+    border-bottom: solid 1px #cfcfcf;
+    margin-bottom:5px;
+    font-size:20px;
+    font-weight:bold;
+    color:black;
+}
 .trivia-vote{
     display:flex;
     float:right;
@@ -45,9 +53,6 @@ article{
     background  : #9c9b9b; 
   }
 
-aside{
-    text-align:right;
-}
 .trivia-post-form{
     padding-bottom:50px;
 }
