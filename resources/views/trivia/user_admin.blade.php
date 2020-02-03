@@ -4,21 +4,23 @@
 
 @section('content')
     <h1>{{ $title }}</h1>
-    <div>
+    <div class="container">
+        <div class="form-area">
         <form method="post" action="{{ action('TriviaController@create_trivia', \Auth::user()->id) }}" enctype="multipart/form-data" class="trivia-post-form">
             {{ csrf_field() }}
+            <p>豆知識の内容を入力してください(20文字以内)</p>
             <p>
-                <p>豆知識の内容を入力してください(20文字以内)</p>
                 <input type="text" name="name">
             </p>
+            <p>内容の詳細を入力してください(200文字以内)</p>
             <p>
-                <p>内容の詳細を入力してください(200文字以内)</p>
-                <input type="textarea" name="body">
+                <textarea name="body" rows="4" cols="50"></textarea>
             </p>
             <p>
                 <input type="submit" value="豆知識を投稿する" class="btn btn-primary">
             </p>
         </form>
+        </div>
         <p>現在の豆知識総数: <span class="trivia-count">{{ $trivia_count }}</span></p>
         <table class="table table-hover table-borderd text-center">
             <thead class="thead-light">

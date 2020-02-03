@@ -20,17 +20,15 @@
                     <div classs="row">
                         <div class="card trivia-card">
                             <div class="card-body ">
-                                <a href="{{ url('/') }}" class="card-body-name">{{ $trivia->name }}</a>
+                                <a href="{{ action('TriviaController@show_trivia_detail', $trivia->id) }}" class="card-body-name">{{ $trivia->name }}</a>
                                 <p>Made by <a href="">{{ $trivia->user->name }}</a></p>
                                 <div class="trivia-vote">
-                                    <form method="get" action=""  class="text-right" name="myform" id = "my_form">
+                                    <form method="post" action="{{ action('VoteController@is_valid_trivia_vote') }}"  class="text-right">
                                         {{ csrf_field() }}
-                                        <input type="submit" value="へー:" class="vote-button">
+                                        <input type="hidden" value="{{ $trivia->id }}" name="id">
+                                        <input type="submit" value="へー:" name="vote" class="vote-button">
                                         <span class="vote-up">{{$trivia->vote_up }}</span>
-                                    </form>
-                                    <form method="get" action=""  class="text-right" name="myform" id = "my_form">
-                                        {{ csrf_field() }}
-                                        <input type="submit" value="ちがうよ:" class="vote-button">
+                                        <input type="submit" value="ちがうよ:" name="vote" class="vote-button">
                                         <span class="vote-down">{{$trivia->vote_down }}</span>
                                     </form>
                                 </div>
