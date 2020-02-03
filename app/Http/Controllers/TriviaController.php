@@ -12,11 +12,11 @@ class TriviaController extends Controller
     //
     public function __construct()
     {
-        // authというミドルウェアを設定
         $this->middleware('auth');
     }
 
-    public function index(){
+    public function index()
+    {
         $trivias = $this->get_all_trivias();
         $title = '豆知識一覧';
         return view('trivia.index',[
@@ -31,7 +31,9 @@ class TriviaController extends Controller
         return $get_all_trivias;
     }
 
-    public function show_user_admin($id){
+    public function show_user_admin()
+    {
+        $id = \Auth::user()->id;
         $trivias = $this->get_user_trivias($id);
         $trivia_count = count($trivias);
         $title = 'ユーザー画面';
@@ -46,6 +48,22 @@ class TriviaController extends Controller
     {
         $get_user_trivias = Trivia::where('user_id', $id)->get();
         return $get_user_trivias;
+    }
+
+    public function show_trivia_detail($id)
+    {
+        $trivia_detail = $this->get_trivia_detail($id);
+        $title = $trivia_detail->name;
+        return view('trivia.trivia_detail',[
+            'title' => $title,
+            'trivia_detail' => $trivia_detail,
+        ]);
+    }
+
+    private function get_trivia_detail($id)
+    {
+        $get_trivia_detail = Trivia::where('id', $id)->first();
+        return $get_trivia_detail;
     }
 
     public function create_trivia(CreateTriviaRequest $request)

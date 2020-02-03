@@ -1,21 +1,26 @@
-.index-body{
+.index-body
+{
     margin-top:50px;
 }
 
-.card-title{
+.card-title
+{
     text-align:center;
     background-color:blue;
 }
 
-article{
+article
+{
 
 }
 
-.trivia-card{
+.trivia-card
+{
     margin-bottom:30px;
 }
 
-.card-body-name{
+.card-body-name
+{
     display:block;
     border-bottom: solid 1px #cfcfcf;
     margin-bottom:5px;
@@ -23,23 +28,29 @@ article{
     font-weight:bold;
     color:black;
 }
-.trivia-vote{
+.trivia-vote
+{
     display:flex;
     float:right;
     font-size:12px;
 }
 
-.vote-up{
+.vote-up
+{
+    font-size:15px;
     font-weight:bold;
     color:rgb(36, 36, 209);
 }
 
-.vote-down{
+.vote-down
+{
+    font-size:15px;
     font-weight:bold;
     color:rgba(211, 9, 9, 0.801);
 }
 
-.vote-button{
+.vote-button
+{
     font-size : 8pt;  
     cursor : pointer;     
     background : #ffffff;     
@@ -48,16 +59,51 @@ article{
     border-radius : 20%;  
 }
 
-.vote-button:hover {
+.vote-button:hover 
+{
     color : #ffffff;
     background  : #9c9b9b; 
-  }
+}
 
-.trivia-post-form{
+.trivia-post-form
+{
     padding-bottom:50px;
 }
 
-.trivia-count{
+.trivia-count
+{
     font-size:20px;
     font-weight:bold;
+}
+
+.trivia-title
+{
+    border-bottom: solid 1px #cfcfcf;
+}
+
+.trivia-body
+{
+    margin-top: 30px
+}
+
+.trivia-detail-article
+{
+    height:400px;
+    margin-top:50px;
+}
+
+.vote-button-detail
+{
+    font-size : 12pt;  
+    cursor : pointer;     
+    background : #ffffff;     
+    color : #7c7c7c;           
+    border : 2px solid #ffffff;    
+    border-radius : 20%;  
+}
+
+.vote-button-detail:hover 
+{
+    color : #ffffff;
+    background  : #9c9b9b; 
 }
