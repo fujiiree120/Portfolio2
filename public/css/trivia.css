@@ -64,6 +64,16 @@ article
     color : #ffffff;
     background  : #9c9b9b; 
 }
+.vote-button-hover
+{
+    font-size : 8pt;  
+    cursor : pointer;     
+    color : #ffffff;
+    background  : #9c9b9b;         
+    border : 2px solid #ffffff;    
+    border-radius : 20%;  
+}
+}
 
 .trivia-post-form
 {
@@ -98,6 +108,16 @@ article
     cursor : pointer;     
     background : #ffffff;     
     color : #7c7c7c;           
+    border : 2px solid #ffffff;    
+    border-radius : 20%;  
+}
+
+.vote-button-detail-hover
+{
+    font-size : 12pt;  
+    cursor : pointer;     
+    color : #ffffff;
+    background  : #9c9b9b;           
     border : 2px solid #ffffff;    
     border-radius : 20%;  
 }

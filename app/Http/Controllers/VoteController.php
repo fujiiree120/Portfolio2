@@ -18,35 +18,53 @@ class VoteController extends Controller
     {
         if($request->vote === "へー:"){
             $vote = 'vote_up';
-            $this->update_trivia_vote($request->id, $vote);
+            $vote_reverse = 'vote_down';
         }else if($request->vote === "ちがうよ:"){
             $vote = 'vote_down';
-            $this->update_trivia_vote($request->id, $vote);
+            $vote_reverse = 'vote_up';
         }else{
             return redirect('/')->with('flash_error', '値が不正です');
         }
+
+        $this->update_trivia($request->id, $vote, $vote_reverse);
         return back()->with('flash_message', '豆知識に投票しました');
     }
 
-    private function update_trivia_vote($id, $vote)
+    private function update_trivia($id, $vote, $vote_reverse)
     {
         DB::beginTransaction();
         try{
-            $trivia = Trivia::where('id', $id)->first();
-            $trivia->$vote ++;
-            $trivia->save();
+            $user_id = \Auth::user()->id;
+            $vote_user_status = VoteUserStatus::where('user_id',$user_id)->where('trivia_id', $id)->first();    
 
-            $this->update_vote_user_status($id, $vote);
+            $this->update_trivia_vote($id, $vote_user_status, $vote, $vote_reverse);
+            $this->update_vote_user_status($id, $vote, $vote_user_status, $user_id);
             DB::commit();
         } catch (\PDOException $e){
             DB::rollBack();
         }
     }
 
-    private function update_vote_user_status($id, $vote)
+    private function update_trivia_vote($id, $vote_user_status, $vote, $vote_reverse)
+    {
+        $trivia = Trivia::where('id', $id)->first();
+        if(!empty($vote_user_status)){
+            if($id == $vote_user_status->trivia_id && $vote_user_status->$vote == true){
+                $trivia->$vote --;
+            }else if($id == $vote_user_status->trivia_id && $vote_user_status->$vote == false && $vote_user_status->$vote_reverse == true){
+                $trivia->$vote ++;    
+                $trivia->$vote_reverse --;
+            }else{
+                $trivia->$vote ++;
+            }
+        }else{
+            $trivia->$vote ++;
+        }
+        $trivia->save();
+    }
+
+    private function update_vote_user_status($id, $vote, $vote_user_status, $user_id)
     {   
-        $user_id = \Auth::user()->id;
-        $vote_user_status = VoteUserStatus::where('user_id',$user_id)->where('trivia_id', $id)->first();
         if(empty($vote_user_status)){
             $vote_user_status = new VoteUserStatus();
             $vote_user_status->trivia_id = $id;

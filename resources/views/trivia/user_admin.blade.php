@@ -35,8 +35,26 @@
             </thead>
             <tbody>
             @forelse($trivias as $trivia)
-                    <td>{{ $trivia->name }}</td>
-                    <td>{{ $trivia->body }}</td>
+                    <td>
+                        <form method="post" action="{{ action('TriviaController@update_name', $trivia->id) }}">
+                            {{ csrf_field() }}
+                            {{ method_field('patch') }}
+                            <div class="form-group">
+                                <input  type="text" name="name" value="{{ $trivia->name }}">
+                                <input type="submit" value="変更" class="btn btn-secondary">
+                            </div>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" action="{{ action('TriviaController@update_body', $trivia->id) }}">
+                            {{ csrf_field() }}
+                            {{ method_field('patch') }}
+                            <div class="form-group">
+                                <input  type="text" name="body" value="{{ $trivia->body }}">
+                                <input type="submit" value="変更" class="btn btn-secondary">
+                            </div>
+                        </form>
+                    </td>
                     <td>{{ $trivia->vote_up }}</td>
                     <td>{{ $trivia->vote_down }}</td>
                     <td>
@@ -49,7 +67,7 @@
                         </form>
                     </td>
                     <td>
-                        <form method="post" action="">
+                        <form method="post" action="{{ action('TriviaController@destroy_trivia', $trivia->id) }}">
                             {{ csrf_field() }}
                             {{ method_field('delete') }}
                             <div class="form-group">

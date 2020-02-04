@@ -13,9 +13,9 @@
             <form method="post" action="{{ action('VoteController@is_valid_trivia_vote') }}"  class="text-right">
                 {{ csrf_field() }}
                 <input type="hidden" value="{{ $trivia_detail->id }}" name="id">
-                <input type="submit" value="へー:" name="vote" class="vote-button-detail">
+                <input type="submit" value="へー:" name="vote" class="{{ $class_button_up }}">
                 <span class="vote-up">{{$trivia_detail->vote_up }}</span>
-                <input type="submit" value="ちがうよ:" name="vote" class="vote-button-detail">
+                <input type="submit" value="ちがうよ:" name="vote" class="{{ $class_button_down }}">
                 <span class="vote-down">{{$trivia_detail->vote_down }}</span>
             </form>
         </div>

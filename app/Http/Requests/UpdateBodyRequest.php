@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateTriviaRequest extends FormRequest
+class UpdateBodyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,6 @@ class CreateTriviaRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required|max:20',
             'body' => 'required|max:200',
         ];
     }
@@ -33,8 +32,6 @@ class CreateTriviaRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => '豆知識を入力してください',
-            'name.max' => '20文字以内で豆知識を入力してください',
             'body.required' => 'コメントを入力してください',
             'body.max' => '200文字以内で豆知識を入力してください',
           ];

@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Trivia;
+use App\VoteUserStatus;
 
 use App\Http\Requests\CreateTriviaRequest;
+use App\Http\Requests\UpdateNameRequest;
+use App\Http\Requests\UpdateBodyRequest;
 
 class TriviaController extends Controller
 {
@@ -17,11 +20,15 @@ class TriviaController extends Controller
 
     public function index()
     {
+        $id = \Auth::user()->id;
         $trivias = $this->get_all_trivias();
         $title = '豆知識一覧';
+        $user_votes = $this->get_all_user_status($id);
+
         return view('trivia.index',[
             'title' => $title,
             'trivias' => $trivias,
+            'user_votes' => $user_votes,
         ]);
     }
 
@@ -29,6 +36,12 @@ class TriviaController extends Controller
     {
         $get_all_trivias = Trivia::all();
         return $get_all_trivias;
+    }
+
+    private function get_all_user_status($id)
+    {
+        $get_user_status = VoteUserStatus::where('user_id', $id)->get();
+        return $get_user_status;
     }
 
     public function show_user_admin()
@@ -50,14 +63,42 @@ class TriviaController extends Controller
         return $get_user_trivias;
     }
 
+
+
     public function show_trivia_detail($id)
     {
+        $user_id = \Auth::user()->id;
+        $user_vote = $this->get_user_status($id, $user_id);
         $trivia_detail = $this->get_trivia_detail($id);
+        if(!empty($user_vote)){
+            if($user_vote->vote_up == true){
+                $class_button_up = "vote-button-detail-hover";
+                $class_button_down = "vote-button-detail";
+            }else if($user_vote->vote_down == true){
+                $class_button_up = "vote-button-detail";
+                $class_button_down = "vote-button-detail-hover";
+            }else{
+                $class_button_up = "vote-button-detail";
+                $class_button_down = "vote-button-detail";
+            }
+        }else{
+            $class_button_up = "vote-button-detail";
+            $class_button_down = "vote-button-detail";
+        }
+
         $title = $trivia_detail->name;
         return view('trivia.trivia_detail',[
             'title' => $title,
             'trivia_detail' => $trivia_detail,
+            'class_button_up' =>$class_button_up,
+            'class_button_down' =>$class_button_down,
         ]);
+    }
+
+    private function get_user_status($id, $user_id)
+    {
+        $get_user_status = VoteUserStatus::where('user_id', $user_id)->where('trivia_id', $id)->first();
+        return $get_user_status;
     }
 
     private function get_trivia_detail($id)
@@ -78,5 +119,25 @@ class TriviaController extends Controller
         $trivia->save();
 
         return redirect('/user/{trivia}')->with('flash_message', '豆知識を投稿しました');
+    }
+
+    public function update_name(Trivia $trivia, UpdateNameRequest $request)
+    {
+        $trivia->name = $request->name;
+        $trivia->save();
+        return redirect('/user/{trivia}')->with('flash_message', 'タイトルを変更しました');
+    }
+
+    public function update_body(Trivia $trivia, UpdateBodyRequest $request)
+    {
+        $trivia->body = $request->body;
+        $trivia->save();
+        return redirect('/user/{trivia}')->with('flash_message', '内容を変更しました');
+    }
+
+    public function destroy_trivia(Trivia $trivia)
+    {
+        $trivia->delete();
+        return redirect('/user/{trivia}')->with('flash_message', '豆知識を削除しました');
     }
 }

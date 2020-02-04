@@ -10,4 +10,9 @@ class Trivia extends Model
     public function user(){
         return $this->belongsTo('App\User');
     }
+
+    public function vote_user()
+    {
+        return $this->hasMany('App\VoteUserStatus');
+    }
 }
