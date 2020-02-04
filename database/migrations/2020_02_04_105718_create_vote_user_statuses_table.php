@@ -18,7 +18,7 @@ class CreateVoteUserStatusesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedInteger('trivia_id');
-            $table->foreign('trivia_id')->references('id')->on('trivias');
+            $table->foreign('trivia_id')->references('id')->on('trivias')->onDelete('cascade');;
             $table->boolean('vote_up')->default(false);
             $table->boolean('vote_down')->default(false);
             $table->timestamps();
