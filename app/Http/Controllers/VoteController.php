@@ -49,9 +49,12 @@ class VoteController extends Controller
     {
         $trivia = Trivia::where('id', $id)->first();
         if(!empty($vote_user_status)){
-            if($id == $vote_user_status->trivia_id && $vote_user_status->$vote == true){
+            $vote_true = $vote_user_status->$vote;
+            $vote_false = $vote_user_status->$vote_reverse;
+
+            if($id == $vote_user_status->trivia_id && $vote_true == true){
                 $trivia->$vote --;
-            }else if($id == $vote_user_status->trivia_id && $vote_user_status->$vote == false && $vote_user_status->$vote_reverse == true){
+            }else if($id == $vote_user_status->trivia_id && $vote_true == false && $vote_false == true){
                 $trivia->$vote ++;    
                 $trivia->$vote_reverse --;
             }else{
