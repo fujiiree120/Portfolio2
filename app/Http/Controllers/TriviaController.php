@@ -34,6 +34,33 @@ class TriviaController extends Controller
         ]);
     }
 
+    public function show_user_trivia($user_id)
+    {
+        $id = \Auth::user()->id;
+        $user_trivia = Trivia::where('user_id',$user_id)->get();
+        $user_votes = $this->get_all_user_status($id);
+        //$user_status = UserRank::where('user_id', $user_id)->first();
+
+        $user_status = $this->get_user_rank();
+        $i = 0;
+        foreach($user_status as $value){
+            if($value->user_id == $user_id){
+                $user_rank = $i + 1;
+                $user_score = $value->user_score;
+                $title = $value->user->name.'さんのマイページ';
+            break;
+            }
+            $i ++;
+        }
+        return view('trivia.user_my_page',[
+            'title' => $title,
+            'trivias' => $user_trivia,
+            'user_rank' => $user_rank,
+            'user_score' => $user_score,
+            'user_votes' => $user_votes,
+        ]);
+    }
+
     private function get_user_rank()
     {
         $user_rank = UserRank::orderBy('user_score', 'desc')->get();

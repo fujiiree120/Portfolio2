@@ -73,6 +73,21 @@ article
     border : 2px solid #ffffff;    
     border-radius : 20%;  
 }
+
+.user_rank
+{
+    border-bottom: dashed 1px #cfcfcf;
+    margin-bottom:10px;
+}
+.user_rank span
+{
+    margin: 0 10px 0 10px;
+}
+
+.user-score
+{
+    font-weight:bold;
+    font-size:20px;
 }
 
 .trivia-post-form
