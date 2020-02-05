@@ -50,6 +50,7 @@
                                 <div class="trivia-vote">
                                     <form method="post" action="{{ action('VoteController@is_valid_trivia_vote') }}"  class="text-right">
                                         {{ csrf_field() }}
+                                        <input type="hidden" value="{{ $trivia->user_id }}" name="user_id">
                                         <input type="hidden" value="{{ $trivia->id }}" name="id">
                                         <input type="submit" value="へー:" name="vote" class="{{ $button_class_up }}">
                                         <span class="vote-up">{{$trivia->vote_up }}</span>
@@ -70,7 +71,14 @@
                         ユーザーランキング
                     </div>
                     <div class="card-body">
-                        <p>ユーザーランキング</p>
+                        @forelse($user_rank as $value)
+                            <div>
+                                <a href="">{{ $value->user->name }}</a>
+                                <span>{{ $value->user_score }}点</span>
+                            </div>
+                        @empty
+                        @endforelse
+                        
                     </div>
                 </div>
             </aside>
