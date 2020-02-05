@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Trivia;
 use App\VoteUserStatus;
+use App\UserRank;
 
 use App\Http\Requests\CreateTriviaRequest;
 use App\Http\Requests\UpdateNameRequest;
@@ -24,13 +25,47 @@ class TriviaController extends Controller
         $trivias = $this->get_all_trivias();
         $title = '豆知識一覧';
         $user_votes = $this->get_all_user_status($id);
-
+        $user_rank = $this->get_user_rank();
         return view('trivia.index',[
             'title' => $title,
             'trivias' => $trivias,
             'user_votes' => $user_votes,
+            'user_rank' => $user_rank,
         ]);
     }
+
+    public function show_user_trivia($user_id)
+    {
+        $id = \Auth::user()->id;
+        $user_trivia = Trivia::where('user_id',$user_id)->get();
+        $user_votes = $this->get_all_user_status($id);
+        //$user_status = UserRank::where('user_id', $user_id)->first();
+
+        $user_status = $this->get_user_rank();
+        $i = 0;
+        foreach($user_status as $value){
+            if($value->user_id == $user_id){
+                $user_rank = $i + 1;
+                $user_score = $value->user_score;
+                $title = $value->user->name.'さんのマイページ';
+            break;
+            }
+            $i ++;
+        }
+        return view('trivia.user_my_page',[
+            'title' => $title,
+            'trivias' => $user_trivia,
+            'user_rank' => $user_rank,
+            'user_score' => $user_score,
+            'user_votes' => $user_votes,
+        ]);
+    }
+
+    private function get_user_rank()
+    {
+        $user_rank = UserRank::orderBy('user_score', 'desc')->get();
+        return $user_rank;
+;    }
 
     private function get_all_trivias()
     {
@@ -62,7 +97,6 @@ class TriviaController extends Controller
         $get_user_trivias = Trivia::where('user_id', $id)->get();
         return $get_user_trivias;
     }
-
 
 
     public function show_trivia_detail($id)

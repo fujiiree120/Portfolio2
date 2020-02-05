@@ -13,6 +13,7 @@
 
 Route::get('/', 'TriviaController@index');
 Route::get('/{trivia}/detail', 'TriviaController@show_trivia_detail');
+Route::get('/{trivia}/user', 'TriviaController@show_user_trivia');
 Route::get('/user/{trivia}', 'TriviaController@show_user_admin');
 Route::post('/user/{trivia}/create', 'TriviaController@create_trivia');
 Route::patch('/user/{trivia}/name', 'TriviaController@update_name');

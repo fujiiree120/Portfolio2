@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Trivia;
 use App\VoteUserStatus;
+use App\UserRank;
 use DB;
 class VoteController extends Controller
 {
@@ -25,19 +26,17 @@ class VoteController extends Controller
         }else{
             return redirect('/')->with('flash_error', '値が不正です');
         }
-
-        $this->update_trivia($request->id, $vote, $vote_reverse);
+        $this->update_trivia($request->id, $vote, $vote_reverse, $request->user_id);
         return back()->with('flash_message', '豆知識に投票しました');
     }
 
-    private function update_trivia($id, $vote, $vote_reverse)
+    private function update_trivia($id, $vote, $vote_reverse, $user_rank_id)
     {
         DB::beginTransaction();
         try{
             $user_id = \Auth::user()->id;
             $vote_user_status = VoteUserStatus::where('user_id',$user_id)->where('trivia_id', $id)->first();    
-
-            $this->update_trivia_vote($id, $vote_user_status, $vote, $vote_reverse);
+            $this->update_trivia_vote($id, $vote_user_status, $vote, $vote_reverse, $user_rank_id);
             $this->update_vote_user_status($id, $vote, $vote_user_status, $user_id);
             DB::commit();
         } catch (\PDOException $e){
@@ -45,7 +44,7 @@ class VoteController extends Controller
         }
     }
 
-    private function update_trivia_vote($id, $vote_user_status, $vote, $vote_reverse)
+    private function update_trivia_vote($id, $vote_user_status, $vote, $vote_reverse, $user_rank_id)
     {
         $trivia = Trivia::where('id', $id)->first();
         if(!empty($vote_user_status)){
@@ -61,9 +60,36 @@ class VoteController extends Controller
                 $trivia->$vote ++;
             }
         }else{
+            $vote_true = false;
+            $vote_false = false;
             $trivia->$vote ++;
         }
         $trivia->save();
+        $this->update_user_rank($user_rank_id, $vote_true, $vote_false, $vote);
+    }
+
+    private function update_user_rank($user_rank_id, $vote_true, $vote_false, $vote)
+    {
+        $user_rank = UserRank::where('user_id', $user_rank_id)->first();
+        if(empty($user_rank)){
+            $user_rank = new UserRank();
+            $user_rank->user_id = $user_rank_id;
+            $user_rank->user_score = 0;
+        }
+        if($vote_true == true && $vote === 'vote_up'){
+            $user_rank->user_score --;
+        }else if($vote_true == true && $vote === 'vote_down'){
+            $user_rank->user_score ++;
+        }else if($vote_false == true && $vote === 'vote_up'){
+            $user_rank->user_score += 2;
+        }else if($vote_false == true && $vote === 'vote_down'){
+            $user_rank->user_score -= 2;
+        }else if($vote === 'vote_up'){
+            $user_rank->user_score ++;
+        }else if($vote === 'vote_down'){
+            $user_rank->user_score --;
+        }
+        $user_rank->save();
     }
 
     private function update_vote_user_status($id, $vote, $vote_user_status, $user_id)

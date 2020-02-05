@@ -3,20 +3,11 @@
 @section('title', $title)
 
 @section('content')
-    <h1>{{ $title }}</h1>
     <div class="container">
-        <div class="row index-body">
-            <nav class="col-md-3">
-                <div class="card">
-                    <div class="card-header card-title">
-                        検索結果
-                    </div>
-                    <div class="card-body">
-                        <p>検索結果</p>
-                    </div>
-                </div>
-            </nav>
-            <article class="col-md-6">
+        <h1>{{ $title }}</h1>
+        <p>現在の順位: <span class="user-score"> {{ $user_rank }} </span>位</p>
+        <p>現在のユーザースコアは <span class="user-score"> {{ $user_score }} </span> 点です</p>
+        <article class="col-md-8 offset-md-2">
                 @forelse($trivias as $trivia)
                     @forelse($user_votes as $user_vote)
                         @if($user_vote->trivia_id === $trivia->id && $user_vote->vote_up == true)
@@ -65,25 +56,6 @@
                 @empty
                     <p>豆知識はありません。</p>
                 @endforelse
-            </article>
-            <aside class="col-md-3">
-                <div class="card">
-                    <div class="card-header card-title">
-                        ユーザーランキング
-                    </div>
-                    <div class="card-body">
-                        @forelse($user_rank as $value)
-                            <div class="user_rank">
-                                <span>{{ $loop->index + 1 }}位</span>
-                                <a href="{{ action('TriviaController@show_user_trivia', $value->user_id) }}" class="user_rank_name">{{ $value->user->name }}</a>
-                                <span>{{ $value->user_score }}点</span>
-                            </div>
-                        @empty
-                        @endforelse
-                        <a href="">もっとみる</a>
-                    </div>
-                </div>
-            </aside>
-        </div>
+        </article>
     </div>
 @endsection
