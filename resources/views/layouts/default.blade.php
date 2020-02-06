@@ -31,6 +31,11 @@
                         <a href="javascript:form1.submit()" class="nav-link">ログアウト</a>
                     </form>
                 </li>
+                @if(Auth::user()->admin === 1)
+                <li class="nav-item">
+                    <a class="nav-link" href="">管理画面</a>
+                </li>
+                @endif
                 <li class="nav-item">
                     <form method="get" action="" class="text-center">
                         {{ csrf_field() }}
