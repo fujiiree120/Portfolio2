@@ -20,7 +20,7 @@
         <div class="collapse navbar-collapse" id="headerNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ action('TriviaController@show_user_admin', \Auth::user()->id) }}">ユーザー画面</a>
+                    <a class="nav-link" href="{{ action('TriviaController@show_user_index', \Auth::user()->id) }}">ユーザー画面</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">ユーザーランキング</a>
@@ -33,18 +33,10 @@
                 </li>
                 @if(Auth::user()->admin === 1)
                 <li class="nav-item">
-                    <a class="nav-link" href="">管理画面</a>
+                    <a class="nav-link" href="{{ action('HomeController@show_admin') }}">管理画面</a>
                 </li>
                 @endif
-                <li class="nav-item">
-                    <form method="get" action="" class="text-center">
-                        {{ csrf_field() }}
-                        <input  type="text" name="keyword" class="text-field" placeholder="キーワードで検索">
-                        <input type="submit" value="検索" class="btn btn-sm btn-info">
-                    </form>
-                </li>
             </ul>
-            <!-- <a class="nav-link change_admin" href="{{ url('/users/admin') }}">管理者権限を切り替える</a> -->
         </div>
     </nav>
     <p>ようこそ　{{ Auth::user()->name }} さん</p>

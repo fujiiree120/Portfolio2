@@ -16,13 +16,20 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    public function show_admin()
+    {
+        $user = \Auth::user()->admin;
+        if($user == 0){
+            return redirect('/')->with('flash_error', '不正なアクセスです');
+        }
+        return view('admin.admin',[
+            'title' => '管理画面',
+        ]);
+    }
+
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('home');
-    }
 }

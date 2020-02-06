@@ -9,11 +9,18 @@
             <nav class="col-md-3">
                 <div class="card">
                     <div class="card-header card-title">
-                        検索結果
+                        雑学を探す
                     </div>
                     <div class="card-body">
-                        <p>検索結果</p>
+                        <form method="get" action="{{ action('TriviaController@index') }}" class="form-inline">
+                            {{ csrf_field() }}
+                            <div class="form-group">
+                                <input  type="text" name="keyword" class="text-field" value="{{ $keyword }}" placeholder="キーワードで検索">
+                                <button type="submit" class="btn btn-sm btn-info">検索</button>
+                            </div>
+                        </form>
                     </div>
+                    
                 </div>
             </nav>
             <article class="col-md-6">
@@ -63,7 +70,7 @@
                         </div>
                     </div>
                 @empty
-                    <p>豆知識はありません。</p>
+                    <p>雑学はありません。</p>
                 @endforelse
             </article>
             <aside class="col-md-3">

@@ -14,7 +14,7 @@
 Route::get('/', 'TriviaController@index');
 Route::get('/{trivia}/detail', 'TriviaController@show_trivia_detail');
 Route::get('/{trivia}/user', 'TriviaController@show_user_trivia');
-Route::get('/user/{trivia}', 'TriviaController@show_user_admin');
+Route::get('/user/{trivia}', 'TriviaController@show_user_index');
 Route::post('/user/{trivia}/create', 'TriviaController@create_trivia');
 Route::patch('/user/{trivia}/name', 'TriviaController@update_name');
 Route::patch('/user/{trivia}/body', 'TriviaController@update_body');
@@ -23,4 +23,4 @@ Route::post('/vote', 'VoteController@is_valid_trivia_vote');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin', 'HomeController@show_admin');
