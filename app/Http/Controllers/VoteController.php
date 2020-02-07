@@ -27,7 +27,7 @@ class VoteController extends Controller
             return redirect('/')->with('flash_error', '値が不正です');
         }
         $this->update_trivia($request->id, $vote, $vote_reverse, $request->user_id);
-        return back()->with('flash_message', '豆知識に投票しました');
+        return back()->with('flash_message', '雑学を投票しました');
     }
 
     private function update_trivia($id, $vote, $vote_reverse, $user_rank_id)
@@ -106,7 +106,7 @@ class VoteController extends Controller
             $vote_user_status->vote_down = !$vote_user_status->vote_down;
             $vote_user_status->vote_up = false;
         }else{
-            return back()->with('flash_message', '豆知識に投票しました');
+            return back()->with('flash_message', '雑学を投票しました');
         }
         
         $vote_user_status->save();
