@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use App\Trivia;
 use App\VoteUserStatus;
 use App\UserRank;
+use App\CreateGenre;
+use App\TriviaGenre;
 
 use App\Http\Requests\CreateTriviaRequest;
 use App\Http\Requests\UpdateNameRequest;
 use App\Http\Requests\UpdateBodyRequest;
+use App\Http\Requests\CreateGenreRequest;
 
 class TriviaController extends Controller
 {
@@ -101,12 +104,14 @@ class TriviaController extends Controller
     {
         $id = \Auth::user()->id;
         $trivias = $this->get_user_trivias($id);
+        $genre = $this->get_all_genre();
         $trivia_count = count($trivias);
         $title = 'ユーザー画面';
         return view('trivia.user_index',[
             'title' => $title,
             'trivias' => $trivias,
             'trivia_count' => $trivia_count,
+            'genre' => $genre,
         ]);
     }
 
@@ -114,6 +119,12 @@ class TriviaController extends Controller
     {
         $get_user_trivias = Trivia::where('user_id', $id)->get();
         return $get_user_trivias;
+    }
+
+    private function get_all_genre()
+    {
+        $get_all_genre = CreateGenre::all();
+        return $get_all_genre;
     }
 
 
@@ -187,9 +198,43 @@ class TriviaController extends Controller
         return redirect('/user/{trivia}')->with('flash_message', '内容を変更しました');
     }
 
+    public function update_genre($id, Request $request)
+    {
+        if(!isset($request->genre_id)){
+            return redirect('/user/{trivia}');
+        }
+        $genre = TriviaGenre::where('trivia_id', $id)->first();
+        if(empty($genre)){
+            $this->create_trivia_genre($id, $request->genre_id);
+        }else{
+            $genre->genre_id = $request->genre_id;
+            $genre->save();
+        }
+
+        return redirect('/user/{trivia}')->with('flash_message', 'ジャンルを変更しました');
+    }
+
+    private function create_trivia_genre($trivia_id, $genre_id)
+    {
+        $genre = new TriviaGenre();
+        $genre->trivia_id = $trivia_id;
+        $genre->genre_id = $genre_id;
+        $genre->save();
+    }
+
     public function destroy_trivia(Trivia $trivia)
     {
         $trivia->delete();
         return redirect('/user/{trivia}')->with('flash_message', '雑学を削除しました');
+    }
+
+    public function create_genre(CreateGenreRequest $request)
+    {
+        //Triviaモデルを作成する処理
+        $trivia = new CreateGenre();
+        $trivia->genre = $request->genre;
+        $trivia->save();
+
+        return redirect('/admin')->with('flash_message', 'ジャンルを作成しました');
     }
 }

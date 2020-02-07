@@ -15,4 +15,8 @@ class Trivia extends Model
     {
         return $this->hasMany('App\VoteUserStatus');
     }
+
+    public function genre(){
+        return $this->hasOne('App\TriviaGenre');
+    }
 }

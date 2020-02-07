@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\CreateGenre;
 
 class HomeController extends Controller
 {
@@ -18,13 +19,21 @@ class HomeController extends Controller
 
     public function show_admin()
     {
+        $genre = $this->get_all_genre();
         $user = \Auth::user()->admin;
         if($user == 0){
             return redirect('/')->with('flash_error', '不正なアクセスです');
         }
         return view('admin.admin',[
             'title' => '管理画面',
+            'genre' => $genre,
         ]);
+    }
+
+    private function get_all_genre()
+    {
+        $get_all_genre = CreateGenre::all();
+        return $get_all_genre;
     }
 
     /**
