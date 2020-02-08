@@ -23,7 +23,7 @@
                     <a class="nav-link" href="{{ action('TriviaController@show_user_index', \Auth::user()->id) }}">ユーザー画面</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">ユーザーランキング</a>
+                    <a class="nav-link" href="{{ action('TriviaController@show_user_rank') }}">ユーザーランキング</a>
                 </li>
                 <li class="nav-item">
                     <form action="{{ url('/logout') }}" method="post" name="form1" >

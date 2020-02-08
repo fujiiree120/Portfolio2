@@ -6,7 +6,7 @@
     <div class="container">
         <div class="trivia-detail-article">
             <h1 class="trivia-title">{{ $title }}</h1>
-            <p>Made by <a href="">{{ $trivia_detail->user->name }}</a></p>
+            <p>Made by <a href="{{ action('TriviaController@show_user_trivia', $trivia_detail->user->id) }}">{{ $trivia_detail->user->name }}</a></p>
             <p class="trivia-body">{!! nl2br(e($trivia_detail->body)) !!}</p>
         </div>
         <div class="trivia-vote">
