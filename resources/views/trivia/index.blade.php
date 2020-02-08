@@ -3,40 +3,60 @@
 @section('title', $title)
 
 @section('content')
-    <h1>{{ $title }}</h1>
     <div class="container">
+    <h1>{{ $title }}</h1>
         <div class="row index-body">
-            <aside class="col-md-3">
-                <div class="card">
-                    <div class="card-header card-title">
-                        雑学を探す
-                    </div>
-                    <div class="card-body">
-                        <form method="get" action="{{ action('TriviaController@index') }}" class="form-inline">
-                            {{ csrf_field() }}
-                            <div class="form-group">
-                                <input  type="text" name="keyword" class="text-field" value="{{ $keyword }}" placeholder="キーワードで検索">
-                                <button type="submit" class="btn btn-sm btn-info">検索</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="card-body">
-                        <p>ジャンルで探す</p>
-                        @forelse($genre as $value)
-                        <div>
-                            <form method="get" action="{{ action('TriviaController@index', $value->id) }}" class="form-inline">
+            <div class="col-md-3 sticky order-md-2">
+                <aside>
+                    <div class="card">
+                        <div class="card-header card-title">
+                            雑学を探す
+                        </div>
+                        <div class="card-body">
+                            <form method="get" action="{{ action('TriviaController@index') }}" class="form-inline">
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <button type="submit" name="genre" value="{{ $value->id }}" class="genre-btn btn btn-sm btn-secondary">{{ $value->genre }}</button>
+                                    <input  type="text" name="keyword" class="text-field" value="{{ $keyword }}" placeholder="キーワードで検索">
+                                    <button type="submit" class="btn btn-sm btn-info">検索</button>
                                 </div>
                             </form>
-                        </div>  
-                        @empty
-                        @endforelse
+                        </div>
+                        <div class="card-body">
+                            <p>ジャンルで探す</p>
+                            @forelse($genre as $value)
+                            <div>
+                                <form method="get" action="{{ action('TriviaController@index', $value->id) }}" class="form-inline">
+                                    {{ csrf_field() }}
+                                    <div class="form-group">
+                                        <button type="submit" name="genre" value="{{ $value->id }}" class="genre-btn btn btn-sm btn-secondary">{{ $value->genre }}</button>
+                                    </div>
+                                </form>
+                            </div>  
+                            @empty
+                            @endforelse
+                        </div>
                     </div>
-                </div>
-            </aside>
-            <article class="col-md-6">
+                </aside>
+                <aside>
+                    <div class="card">
+                        <div class="card-header card-title">
+                            ユーザーランキング
+                        </div>
+                        <div class="card-body">
+                            @forelse($user_rank as $value)
+                                <div class="side-list">
+                                    <span>{{ $loop->index + 1 }}位</span>
+                                    <a href="{{ action('TriviaController@show_user_trivia', $value->user_id) }}">{{ $value->user->name }}</a>
+                                    <span>{{ $value->user_score }}点</span>
+                                </div>
+                            @empty
+                            @endforelse
+                            <a href="{{ action('TriviaController@show_user_rank') }}">もっとみる</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+            <article class="col-md-9 order-md-1">
                 <div>
                     <form method="get" action="{{ action('TriviaController@index') }}"  class="text-left" name="my_form" id = "my_form">
                         {{ csrf_field() }}
@@ -96,24 +116,6 @@
                     <p>雑学はありません。</p>
                 @endforelse
             </article>
-            <aside class="col-md-3">
-                <div class="card">
-                    <div class="card-header card-title">
-                        ユーザーランキング
-                    </div>
-                    <div class="card-body">
-                        @forelse($user_rank as $value)
-                            <div class="side-list">
-                                <span>{{ $loop->index + 1 }}位</span>
-                                <a href="{{ action('TriviaController@show_user_trivia', $value->user_id) }}">{{ $value->user->name }}</a>
-                                <span>{{ $value->user_score }}点</span>
-                            </div>
-                        @empty
-                        @endforelse
-                        <a href="{{ action('TriviaController@show_user_rank') }}">もっとみる</a>
-                    </div>
-                </div>
-            </aside>
         </div>
     </div>
 @endsection

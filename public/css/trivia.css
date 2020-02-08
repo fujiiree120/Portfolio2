@@ -13,14 +13,10 @@ aside
 {
     margin-top:25px;
 }
-article
-{
-
-}
 
 .text-field
 {
-    width:130px;
+    width:150px;
     margin-right:5px;
 }
 
@@ -34,7 +30,7 @@ article
     display:block;
     border-bottom: solid 1px #cfcfcf;
     margin-bottom:5px;
-    font-size:20px;
+    font-size:25px;
     font-weight:bold;
     color:black;
 }
@@ -42,19 +38,19 @@ article
 {
     display:flex;
     float:right;
-    font-size:12px;
+    font-size:15px;
 }
 
 .vote-up
 {
-    font-size:15px;
+    font-size:20px;
     font-weight:bold;
     color:rgb(36, 36, 209);
 }
 
 .vote-down
 {
-    font-size:15px;
+    font-size:20px;
     font-weight:bold;
     color:rgba(211, 9, 9, 0.801);
 }

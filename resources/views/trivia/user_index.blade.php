@@ -3,8 +3,8 @@
 @section('title', $title)
 
 @section('content')
-    <h1>{{ $title }}</h1>
     <div class="container">
+    <h1>{{ $title }}</h1>
         <div class="form-area">
             <form method="post" action="{{ action('TriviaController@create_trivia', \Auth::user()->id) }}" enctype="multipart/form-data" class="trivia-post-form">
                 {{ csrf_field() }}

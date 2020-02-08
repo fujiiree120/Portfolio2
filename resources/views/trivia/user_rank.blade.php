@@ -3,8 +3,8 @@
 @section('title', $title)
 
 @section('content')
-    <h1>{{ $title }}</h1>
     <div class="container">
+    <h1>{{ $title }}</h1>
         <div class="card">
             <div class="card-header card-title">
                 ユーザーランキング
