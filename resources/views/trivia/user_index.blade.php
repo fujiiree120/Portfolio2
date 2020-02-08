@@ -22,7 +22,8 @@
             </form>
         </div>
         <p>現在の豆知識総数: <span class="trivia-count">{{ $trivia_count }}</span></p>
-        <table class="table table-hover table-borderd text-center">
+        <div class="table-responsive user-trivia-table">
+        <table class="table table-borderd text-center table-striped">
             <thead class="thead-light">
                 <tr>
                     <th>豆知識タイトル</th>
@@ -95,5 +96,6 @@
             @endforelse
             </tbody>
         </table>
+        </div>
     </div>
 @endsection

@@ -23,36 +23,66 @@ class TriviaController extends Controller
     }
 
     public function index(Request $request)
-    {
+    {        
+        $order_by = 'created_desc';
         if(!empty($request->keyword)){
             $trivias = $this->get_search_trivias($request->keyword);
+        }else if(!empty($request->genre)){
+            $trivias = $this->show_genre_trivia($request->genre);
+        }else if(!empty($request->trivia_order)){
+            $trivias = $this->get_all_trivia_orderby($request->trivia_order);
+            $order_by = $request->trivia_order;
         }else{
             $trivias = $this->get_all_trivias();
         }
-
         $id = \Auth::user()->id;
         $title = '雑学一覧';
         $user_votes = $this->get_all_user_status($id);
         $user_rank = $this->get_user_rank();
+        $genre = $this->get_all_genre();
         return view('trivia.index',[
-            'title' => $title,
+            'title' =>  $title,
             'trivias' => $trivias,
             'user_votes' => $user_votes,
             'user_rank' => $user_rank,
             'keyword' => $request->keyword,
+            'genre' => $genre,
+            'order_by' => $order_by,
         ]);
+    }
+
+    private function get_all_trivia_orderby($order_by)
+    {
+        if($order_by ==='created_desc'){
+            $get_all_trivias = $this->get_all_trivias();
+        }else if($order_by === 'vote_asc'){
+            $get_all_trivias = Trivia::orderBy('vote_up', 'desc')->get();
+        }else{
+            $get_all_trivias = $this->get_all_trivias();
+        }
+        return $get_all_trivias;
+    }
+    private function get_all_trivias()
+    {
+        $get_all_trivias = Trivia::orderBy('created_at', 'desc')->get();
+        return $get_all_trivias;
     }
 
     private function get_search_trivias($keyword)
     {
         //キーワードに合致する商品を$triviasに格納し、index.phpで表示
-        $get_search_trivias = Trivia::where('name',  'like', '%'.$keyword.'%')->orWhere('body', 'like', '%'.$keyword.'%')->get();
-
-        // $trivias = $get_all_trivias->whereHas('name', function ($query) use ($keyword){
-        //     $query->where('name',  'like', '%'.$keyword.'%');
-        // })->orWhere('body', 'like', '%'.$keyword.'%')->get();
+        $get_search_trivias = Trivia::where('name',  'like', '%'.$keyword.'%')->orWhere('body', 'like', '%'.$keyword.'%')
+        ->orderBy('created_at', 'desc')->get();
 
         return $get_search_trivias;
+    }
+
+    private function show_genre_trivia($id)
+    {
+        $show_genre_trivia = Trivia::whereHas('genre', function($query) use ($id){
+            $query->where('genre_id', $id);
+        })->get();
+        return $show_genre_trivia;
     }
 
     public function show_user_trivia($user_id)
@@ -60,9 +90,8 @@ class TriviaController extends Controller
         $id = \Auth::user()->id;
         $user_trivia = Trivia::where('user_id',$user_id)->get();
         $user_votes = $this->get_all_user_status($id);
-        //$user_status = UserRank::where('user_id', $user_id)->first();
 
-        $user_status = $this->get_user_rank();
+        $user_status = $this->get_user_all_rank();
         $i = 0;
         foreach($user_status as $value){
             if($value->user_id == $user_id){
@@ -82,17 +111,24 @@ class TriviaController extends Controller
         ]);
     }
 
+    public function show_user_rank(){
+        $user_rank = $this->get_user_all_rank();
+        return view('trivia.user_rank',[
+            'title' => 'ユーザーランキング',
+            'user_rank' => $user_rank,
+        ]);
+    }
+
     private function get_user_rank()
+    {
+        $user_rank = UserRank::orderBy('user_score', 'desc')->take(5)->get();
+        return $user_rank;
+;    }
+    private function get_user_all_rank()
     {
         $user_rank = UserRank::orderBy('user_score', 'desc')->get();
         return $user_rank;
 ;    }
-
-    private function get_all_trivias()
-    {
-        $get_all_trivias = Trivia::all();
-        return $get_all_trivias;
-    }
 
     private function get_all_user_status($id)
     {
@@ -200,10 +236,14 @@ class TriviaController extends Controller
 
     public function update_genre($id, Request $request)
     {
-        if(!isset($request->genre_id)){
-            return redirect('/user/{trivia}');
-        }
         $genre = TriviaGenre::where('trivia_id', $id)->first();
+        if(!isset($request->genre_id)){
+            if(empty($genre)){
+                return redirect('/user/{trivia}');
+            }
+            $genre->delete();
+            return redirect('/user/{trivia}')->with('flash_message', 'ジャンルを削除しました');
+        }
         if(empty($genre)){
             $this->create_trivia_genre($id, $request->genre_id);
         }else{

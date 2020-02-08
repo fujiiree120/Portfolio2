@@ -12,6 +12,8 @@
 */
 
 Route::get('/', 'TriviaController@index');
+Route::get('/rank', 'TriviaController@show_user_rank');
+Route::get('/{trivia}/genre', 'TriviaController@show_genre_trivia');
 Route::get('/{trivia}/detail', 'TriviaController@show_trivia_detail');
 Route::get('/{trivia}/user', 'TriviaController@show_user_trivia');
 Route::get('/user/{trivia}', 'TriviaController@show_user_index');
@@ -26,3 +28,4 @@ Route::post('/admin/create', 'TriviaController@create_genre');
 Auth::routes();
 
 Route::get('/admin', 'HomeController@show_admin');
+

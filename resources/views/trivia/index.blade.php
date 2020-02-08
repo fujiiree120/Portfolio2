@@ -6,7 +6,7 @@
     <h1>{{ $title }}</h1>
     <div class="container">
         <div class="row index-body">
-            <nav class="col-md-3">
+            <aside class="col-md-3">
                 <div class="card">
                     <div class="card-header card-title">
                         雑学を探す
@@ -20,10 +20,33 @@
                             </div>
                         </form>
                     </div>
-                    
+                    <div class="card-body">
+                        <p>ジャンルで探す</p>
+                        @forelse($genre as $value)
+                        <div>
+                            <form method="get" action="{{ action('TriviaController@index', $value->id) }}" class="form-inline">
+                                {{ csrf_field() }}
+                                <div class="form-group">
+                                    <button type="submit" name="genre" value="{{ $value->id }}" class="genre-btn btn btn-sm btn-secondary">{{ $value->genre }}</button>
+                                </div>
+                            </form>
+                        </div>  
+                        @empty
+                        @endforelse
+                    </div>
                 </div>
-            </nav>
+            </aside>
             <article class="col-md-6">
+                <div>
+                    <form method="get" action="{{ action('TriviaController@index') }}"  class="text-left" name="my_form" id = "my_form">
+                        {{ csrf_field() }}
+                        <select name='trivia_order' id='order_by'>
+                            <option value="created_desc" @if($order_by == 'created_desc') selected @endif>新着順</option>
+                            <option value="vote_asc" @if($order_by == 'vote_asc') selected @endif>評価が高い順</option>
+                        </select>
+                        <script type="text/javascript" src="/js/order_by.js"></script>
+                    </form>
+                </div>
                 @forelse($trivias as $trivia)
                     @forelse($user_votes as $user_vote)
                         @if($user_vote->trivia_id === $trivia->id && $user_vote->vote_up == true)
@@ -80,14 +103,14 @@
                     </div>
                     <div class="card-body">
                         @forelse($user_rank as $value)
-                            <div class="user_rank">
+                            <div class="side-list">
                                 <span>{{ $loop->index + 1 }}位</span>
-                                <a href="{{ action('TriviaController@show_user_trivia', $value->user_id) }}" class="user_rank_name">{{ $value->user->name }}</a>
+                                <a href="{{ action('TriviaController@show_user_trivia', $value->user_id) }}">{{ $value->user->name }}</a>
                                 <span>{{ $value->user_score }}点</span>
                             </div>
                         @empty
                         @endforelse
-                        <a href="">もっとみる</a>
+                        <a href="{{ action('TriviaController@show_user_rank') }}">もっとみる</a>
                     </div>
                 </div>
             </aside>

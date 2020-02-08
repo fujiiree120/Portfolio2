@@ -14,6 +14,6 @@ class TriviaGenre extends Model
 
     public function trivia()
     {
-        return $this->hasOne('App\Trivia');
+        return $this->belongsTo('App\Trivia');
     }
 }

@@ -1,6 +1,6 @@
 .index-body
 {
-    margin-top:50px;
+    margin-top:40px;
 }
 
 .card-title
@@ -9,6 +9,10 @@
     background-color:blue;
 }
 
+aside
+{
+    margin-top:25px;
+}
 article
 {
 
@@ -16,7 +20,7 @@ article
 
 .text-field
 {
-    width:150px;
+    width:130px;
     margin-right:5px;
 }
 
@@ -80,12 +84,20 @@ article
     border-radius : 20%;  
 }
 
-.user_rank
+.side-list
 {
     border-bottom: dashed 1px #cfcfcf;
     margin-bottom:10px;
 }
-.user_rank span
+
+.genre-btn
+{
+    margin-left:20px;
+    margin-bottom:10px;
+    width:150px;
+}
+
+.side-list span
 {
     margin: 0 10px 0 10px;
 }
@@ -147,4 +159,9 @@ article
 {
     color : #ffffff;
     background  : #9c9b9b; 
+}
+
+.user-trivia-table
+{
+    margin-bottom:50px;
 }
