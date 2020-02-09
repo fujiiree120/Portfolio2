@@ -43,17 +43,15 @@
 </header>
 <body>
     @if (session('flash_error'))
-                <div class="alert alert-danger">
-                    {{ session('flash_error') }}
-                </div>
+        <div class="alert alert-danger">
+            {{ session('flash_error') }}
+        </div>
     @endif
-
     @foreach($errors->all() as $error)
         <div class="alert alert-danger">
             {{ $error }}
         </div>
     @endforeach
-
     @if (session('flash_message'))
         <div class="alert alert-success">
             {{ session('flash_message') }}

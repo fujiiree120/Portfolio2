@@ -9,12 +9,14 @@ use App\UserRank;
 use DB;
 class VoteController extends Controller
 {
-    //
+    //public function
+
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    //投票のvalueが正しい値かチェック→正しければ投票結果更新処理へ
     public function is_valid_trivia_vote(Request $request)
     {
         if($request->vote === "へー:"){
@@ -30,6 +32,10 @@ class VoteController extends Controller
         return back()->with('flash_message', '雑学を投票しました');
     }
 
+
+    //private function
+
+    //is_valicd_trivia_voteが正しければ投票結果を更新する処理をする
     private function update_trivia($id, $vote, $vote_reverse, $user_rank_id)
     {
         DB::beginTransaction();
@@ -44,6 +50,7 @@ class VoteController extends Controller
         }
     }
 
+    //トリビアDBに投票結果を更新する(update_trivia内で実行)
     private function update_trivia_vote($id, $vote_user_status, $vote, $vote_reverse, $user_rank_id)
     {
         $trivia = Trivia::where('id', $id)->first();
@@ -68,6 +75,7 @@ class VoteController extends Controller
         $this->update_user_rank($user_rank_id, $vote_true, $vote_false, $vote);
     }
 
+    //投票結果をユーザーランキングDBに反映させる(update_trivia内で実行)
     private function update_user_rank($user_rank_id, $vote_true, $vote_false, $vote)
     {
         $user_rank = UserRank::where('user_id', $user_rank_id)->first();
@@ -92,6 +100,7 @@ class VoteController extends Controller
         $user_rank->save();
     }
 
+    //投票したユーザーの投票結果ステータスを反映させる(update_trivia内で実行)
     private function update_vote_user_status($id, $vote, $vote_user_status, $user_id)
     {   
         if(empty($vote_user_status)){
@@ -107,8 +116,7 @@ class VoteController extends Controller
             $vote_user_status->vote_up = false;
         }else{
             return back()->with('flash_message', '雑学を投票しました');
-        }
-        
+        }     
         $vote_user_status->save();
     }
 }

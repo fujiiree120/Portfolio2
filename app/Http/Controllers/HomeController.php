@@ -17,6 +17,7 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+    //adminステータスがtrueの場合のみ管理者ページを表示する
     public function show_admin()
     {
         $genre = $this->get_all_genre();
@@ -30,6 +31,7 @@ class HomeController extends Controller
         ]);
     }
 
+    
     private function get_all_genre()
     {
         $get_all_genre = CreateGenre::all();
