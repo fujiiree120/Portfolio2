@@ -38,13 +38,6 @@ class HomeController extends Controller
         return $get_all_genre;
     }
 
-    public function change_admin()
-    {
-        $user = \Auth::user();
-        $user->admin = 1;
-        $user->save();
-    }
-
     /**
      * Show the application dashboard.
      *
