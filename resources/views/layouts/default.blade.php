@@ -36,6 +36,9 @@
                     <a class="nav-link" href="{{ action('HomeController@show_admin') }}">管理画面</a>
                 </li>
                 @endif
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ action('HomeController@change_admin') }}">管理</a>
+                </li>
             </ul>
         </div>
     </nav>

