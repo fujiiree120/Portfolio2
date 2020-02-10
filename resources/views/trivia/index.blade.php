@@ -105,7 +105,7 @@
                                         <input type="hidden" value="{{ $trivia->id }}" name="id">
                                         <input type="submit" value="へー:" name="vote" class="{{ $button_class_up }}">
                                         <span class="vote-up">{{$trivia->vote_up }}</span>
-                                        <input type="submit" value="ちがうよ:" name="vote" class="{{ $button_class_down }}">
+                                        <input type="submit" value="う～ん" name="vote" class="{{ $button_class_down }}">
                                         <span class="vote-down">{{$trivia->vote_down }}</span>
                                     </form>
                                 </div>
