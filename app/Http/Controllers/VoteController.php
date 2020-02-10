@@ -22,7 +22,7 @@ class VoteController extends Controller
         if($request->vote === "へー:"){
             $vote = 'vote_up';
             $vote_reverse = 'vote_down';
-        }else if($request->vote === "ちがうよ:"){
+        }else if($request->vote === "う～ん"){
             $vote = 'vote_down';
             $vote_reverse = 'vote_up';
         }else{
