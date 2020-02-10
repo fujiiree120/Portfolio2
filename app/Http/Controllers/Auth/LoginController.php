@@ -20,7 +20,6 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers {
-        // logout というメソッドを、doLogoutというメソッド名に変更して継承する
         logout as doLogout;
     }
 
