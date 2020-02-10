@@ -48,6 +48,7 @@ class TwitterController extends Controller
             $newuser = new User;
             $newuser->name = $userSocial->getName();
             $newuser->email = $userSocial->getEmail();
+            $newuser->twitter_id = $userSocial->getNickname();
             
             // 画像の取得
             $img = file_get_contents($userSocial->avatar_original);
