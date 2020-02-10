@@ -48,16 +48,19 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
+                                <button type="submit" class="btn ">
+                                    <a href="{{ url('login/twitter')}}">twitterログイン</a>
+                                </button>
                                 <button type="submit" class="btn btn-primary">
                                     ログイン
                                 </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    パスワードを忘れましたか?
-                                </a>
+                                <div>
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        パスワードを忘れましたか?
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </form>

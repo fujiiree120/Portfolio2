@@ -6,9 +6,11 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "abraham/twitteroauth": "^1.1",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "~3.3",
-        "laravel/framework": "5.5.*",
+        "laravel/framework": "5.5.48",
+        "laravel/socialite": "3.0.*",
         "laravel/tinker": "~1.0"
     },
     "require-dev": {
@@ -48,6 +50,9 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
+        ],
+        "compile": [
+            "@php -r \"file_exists('.env') || copy('.env.heroku', '.env');\""
         ]
     },
     "config": {
