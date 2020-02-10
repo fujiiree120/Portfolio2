@@ -61,6 +61,8 @@ class TriviaController extends Controller
         $user = User::where('id', $user_id)->first();
         $title = $user->name;
         $id = \Auth::user()->id;
+        $user_rank = 0;
+        $user_score = 0;
         $user_trivia = $this->get_user_trivias($user_id);
         $user_votes = $this->get_all_user_status($id);
         $user_status = $this->get_user_all_rank();
