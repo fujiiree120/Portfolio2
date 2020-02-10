@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Trivia;
+use App\User;
 use App\VoteUserStatus;
 use App\UserRank;
 use App\CreateGenre;
@@ -57,16 +58,18 @@ class TriviaController extends Controller
     //ユーザーのマイページを取得する(Triviaは指定のユーザーのもののみ取得)
     public function show_user_trivia($user_id)
     {
+        $user = User::where('id', $user_id)->first();
+        $title = $user->name;
         $id = \Auth::user()->id;
         $user_trivia = $this->get_user_trivias($user_id);
         $user_votes = $this->get_all_user_status($id);
         $user_status = $this->get_user_all_rank();
         $i = 0;
+
         foreach($user_status as $value){
             if($value->user_id == $user_id){
                 $user_rank = $i + 1;
                 $user_score = $value->user_score;
-                $title = $value->user->name.'さんのマイページ';
             break;
             }
             $i ++;
