@@ -42,4 +42,4 @@ Route::get('/admin', 'HomeController@show_admin');
 Route::post('/admin/create', 'TriviaController@create_genre');
 
 Route::get('/login/{social}', 'Auth\TwitterController@socialLogin')->where('social', 'twitter');
-Route::get('http://myappportfolioapi.herokuapp.com/', 'Auth\TwitterController@handleProviderCallback')->where('social', 'twitter');
+Route::get('/login/twitter/callback', 'Auth\TwitterController@handleProviderCallback')->where('social', 'twitter');
