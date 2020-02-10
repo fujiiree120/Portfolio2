@@ -18,6 +18,7 @@ class TwitterController extends Controller
     {
         return Socialite::driver($social)->redirect();
     }
+
     //Callback処理
     public function handleProviderCallback($social)
     {
@@ -42,6 +43,7 @@ class TwitterController extends Controller
             
             //ログインしてトップページにリダイレクト
             Auth::login($user);
+            dd($newuser);
             return redirect('/');
         }else{
             //メールアドレスがなければユーザ登録
