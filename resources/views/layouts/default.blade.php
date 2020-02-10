@@ -29,7 +29,6 @@
                     <form action="{{ url('/logout') }}" method="post" name="form1" >
                         {{ csrf_field() }}
                         <a href="javascript:form1.submit()" class="nav-link">ログアウト</a>
-                        <a href="/auth/twitter/logout">Twitterログアウト</a>
                     </form>
                 </li>
                 @if(Auth::user()->admin === 1)
