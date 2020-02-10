@@ -20,8 +20,9 @@ class TwitterController extends Controller
     }
 
     //Callback処理
-    public function handleProviderCallback($social)
+    public function handleProviderCallback()
     {
+        $social = "twitter";
         // ユーザ属性を取得
         try {
             $userSocial = Socialite::driver($social)->user();
@@ -31,7 +32,7 @@ class TwitterController extends Controller
         }
         //メールアドレスで登録状況を調べる
         $user = User::where(['email' => $userSocial->getEmail()])->first();
-       
+
         //メールアドレス登録の有無で条件分岐
         if($user){
             //email登録がある場合の処理
@@ -43,7 +44,6 @@ class TwitterController extends Controller
             
             //ログインしてトップページにリダイレクト
             Auth::login($user);
-            dd($newuser);
             return redirect('/');
         }else{
             //メールアドレスがなければユーザ登録
