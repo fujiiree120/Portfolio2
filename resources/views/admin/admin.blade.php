@@ -32,5 +32,21 @@
             @endforelse
             </tbody>
         </table>
+        <table class="table table-hover table-borderd text-center">
+            <thead class="thead-light">
+                <tr>
+                    <th>ユーザー一覧</th>
+                </tr>
+            </thead>
+            <tbody>
+            @forelse($users as $user)
+                <tr>
+                    <td>{{ $user->name }}</td>
+                </tr>
+            @empty
+                <p>No User</p>
+            @endforelse
+            </tbody>
+        </table>
     </div>
 @endsection
