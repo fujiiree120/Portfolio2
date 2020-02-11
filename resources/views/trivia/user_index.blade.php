@@ -52,7 +52,7 @@
                                 {{ csrf_field() }}
                                 {{ method_field('patch') }}
                                 <div class="form-group">
-                                    <textarea  type="text" name="body" value="{{ $trivia->body }}" row="3" cols="30">{{ $trivia->body }}</textarea>
+                                    <textarea  type="text" name="body" value="{{ $trivia->body }}" row="3" cols="50">{{ $trivia->body }}</textarea>
                                     <input type="submit" value="変更" class="btn btn-sm btn-info">
                                 </div>
                             </form>
