@@ -66,6 +66,4 @@ class TwitterController extends Controller
         }
         
     }
-
-    //twitter投稿
 }

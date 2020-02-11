@@ -29,6 +29,7 @@ class TriviaController extends Controller
     public function index(Request $request)
     {        
         $order_by = 'created_desc';
+
         if(!empty($request->keyword)){
             $trivias = $this->get_search_trivias($request->keyword);
         }else if(!empty($request->genre)){
@@ -39,11 +40,13 @@ class TriviaController extends Controller
         }else{
             $trivias = $this->get_all_trivias();
         }
+
         $id = \Auth::user()->id;
         $title = '雑学一覧';
         $user_votes = $this->get_all_user_status($id);
         $user_rank = $this->get_user_rank();
         $genre = $this->get_all_genre();
+
         return view('trivia.index',[
             'title' =>  $title,
             'trivias' => $trivias,
@@ -63,11 +66,12 @@ class TriviaController extends Controller
         $id = \Auth::user()->id;
         $user_rank = 0;
         $user_score = 0;
+
         $user_trivia = $this->get_user_trivias($user_id);
         $user_votes = $this->get_all_user_status($id);
         $user_status = $this->get_user_all_rank();
-        $i = 0;
 
+        $i = 0;
         foreach($user_status as $value){
             if($value->user_id == $user_id){
                 $user_rank = $i + 1;
@@ -296,7 +300,7 @@ class TriviaController extends Controller
         return $get_user_status;
     }
 
-    //一つのTriviaのみ取(show_trivia_detailで使用)
+    //一つのTriviaのみ取得(show_trivia_detailで使用)
     private function get_trivia_detail($id)
     {
         $get_trivia_detail = Trivia::where('id', $id)->first();

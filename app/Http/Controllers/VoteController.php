@@ -97,6 +97,7 @@ class VoteController extends Controller
         }else if($vote === 'vote_down'){
             $user_rank->user_score --;
         }
+        
         $user_rank->save();
     }
 

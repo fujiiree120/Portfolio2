@@ -22,7 +22,7 @@ Route::get('/{trivia}/detail', 'TriviaController@show_trivia_detail');
 Route::get('/rank', 'TriviaController@show_user_rank');
 
 //ユーザーのマイページを表示
-Route::get('/{trivia}/user', 'TriviaController@show_user_trivia');
+Route::get('/{trivia}/user/trivia', 'TriviaController@show_user_trivia');
 
 //ユーザーの管理ページを表示
 Route::get('/user/{trivia}', 'TriviaController@show_user_index');
