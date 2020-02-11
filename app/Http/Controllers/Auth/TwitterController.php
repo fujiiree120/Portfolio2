@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
-
+use Abraham\TwitterOAuth\TwitterOAuth;
 use App\User;
 use Auth;
 use Illuminate\Support\Facades\Storage;
@@ -52,7 +52,6 @@ class TwitterController extends Controller
             $newuser->email = $userSocial->getEmail();
             $newuser->twitter_id = $userSocial->getNickname();
             
-            // 画像の取得
             $img = file_get_contents($userSocial->avatar_original);
             if ($img !== false) {
                 $file_name = $userSocial->id . '_' . uniqid() . '.jpg';
@@ -67,4 +66,6 @@ class TwitterController extends Controller
         }
         
     }
+
+    //twitter投稿
 }

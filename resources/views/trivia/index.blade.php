@@ -5,6 +5,7 @@
 @section('content')
     <div class="container">
     <h1>{{ $title }}</h1>
+    <p>本サイトは自分が知ってる雑学を投稿し、皆で評価しあうSNSサービスです</p>
         <div class="row index-body">
             <div class="col-md-3 sticky order-md-2">
                 <aside>
