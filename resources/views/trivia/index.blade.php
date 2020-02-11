@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
     <h1>{{ $title }}</h1>
-    <p>このサイトはあなたが知っている何かを共有し、皆で評価しあうSNSサービスです</p>
+    <p>このサイトはあなたが知っている知識を共有し、皆で評価しあうSNSサービスです</p>
         <div class="row index-body">
             <div class="col-md-3 sticky order-md-2">
                 <aside>
