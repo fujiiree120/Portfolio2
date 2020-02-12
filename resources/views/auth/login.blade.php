@@ -4,6 +4,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+            <h1>このサービスの説明</h1>
+            <p>このサービスは雑学、豆知識を共有し、ユーザー同士で評価しあう会員制のSNSサービスです</p>
+            <br></br>
+            <p>テスト用メールアドレス:email@test.com</p>
+            <p>テスト用パスワード:password</p>
+            <p>※Twitterアカウントでもログインができます</p>
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
 
