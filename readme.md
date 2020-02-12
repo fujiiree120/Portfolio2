@@ -28,11 +28,11 @@
 <br>  
 
 # 開発環境
-  ・php7.2  
-  ・mysql5.7  
+  ・php  
+  ・mysql    
   ・phpmyadmin  
   ・Twitter API  
-  ・Laravel5.5    
+  ・Laravel      
   ・VSCode  
   ・git bash    
 
