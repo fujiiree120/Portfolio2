@@ -8,7 +8,7 @@
         <div class="form-area">
             <form method="post" action="{{ action('TriviaController@create_trivia', \Auth::user()->id) }}" enctype="multipart/form-data" class="trivia-post-form">
                 {{ csrf_field() }}
-                <p>豆知識の内容を入力してください(20文字以内)</p>
+                <p>投稿したい雑学のタイトルを入力してください(20文字以内)</p>
                 <p>
                     <input type="text" name="name">
                 </p>
