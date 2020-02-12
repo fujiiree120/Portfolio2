@@ -30,6 +30,7 @@
 # 開発環境
   ・php7.2  
   ・mysql5.7  
+  ・phpmyadmin  
   ・Twitter API  
   ・Laravel5.5    
   ・VSCode  
