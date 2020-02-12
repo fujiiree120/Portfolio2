@@ -6,7 +6,7 @@
     <div class="container">
     <h1>{{ $title }}</h1>
     <p>このサイトはあなたが知っている雑学を共有し、皆で評価しあうSNSサービスです</p>
-    <p>左上のユーザー管理画面から投稿することができます</p>
+    <p>ヘッダーのユーザー管理画面から投稿することができます</p>
         <div class="row index-body">
             <div class="col-md-3 sticky order-md-2">
                 <aside>
