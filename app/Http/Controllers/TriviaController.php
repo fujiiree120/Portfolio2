@@ -42,7 +42,7 @@ class TriviaController extends Controller
         }
 
         $id = \Auth::user()->id;
-        $title = '雑学一覧';
+        $title = '雑学王';
         $user_votes = $this->get_all_user_status($id);
         $user_rank = $this->get_user_rank();
         $genre = $this->get_all_genre();
