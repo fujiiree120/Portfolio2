@@ -105,7 +105,7 @@
                                         {{ csrf_field() }}
                                         <input type="hidden" value="{{ $trivia->user_id }}" name="user_id">
                                         <input type="hidden" value="{{ $trivia->id }}" name="id">
-                                        <input type="submit" value="へー:" name="vote" class="{{ $button_class_up }}">
+                                        <input type="submit" value="へ～" name="vote" class="{{ $button_class_up }}">
                                         <span class="vote-up">{{$trivia->vote_up }}</span>
                                         <input type="submit" value="う～ん" name="vote" class="{{ $button_class_down }}">
                                         <span class="vote-down">{{$trivia->vote_down }}</span>

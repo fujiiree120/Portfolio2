@@ -19,7 +19,7 @@ class VoteController extends Controller
     //投票のvalueが正しい値かチェック→正しければ投票結果更新処理へ
     public function is_valid_trivia_vote(Request $request)
     {
-        if($request->vote === "へー:"){
+        if($request->vote === "へ～"){
             $vote = 'vote_up';
             $vote_reverse = 'vote_down';
         }else if($request->vote === "う～ん"){
