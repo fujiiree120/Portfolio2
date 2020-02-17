@@ -155,7 +155,10 @@ class TriviaController extends Controller
         $trivia->vote_down = 0;
         $trivia->user_id = \Auth::user()->id;
         $trivia->save();
-
+        if(!empty($request->genre_id)){
+            $trivia_id = $trivia->id;
+            $this->create_trivia_genre($trivia_id, $request->genre_id);
+        }
         return redirect('/user/{trivia}')->with('flash_message', '雑学を投稿しました');
     }
 
@@ -188,11 +191,11 @@ class TriviaController extends Controller
         }
         if(empty($genre)){
             $this->create_trivia_genre($id, $request->genre_id);
+            return redirect('/user/{trivia}')->with('flash_message', 'ジャンルを作成しました');
         }else{
             $genre->genre_id = $request->genre_id;
             $genre->save();
         }
-
         return redirect('/user/{trivia}')->with('flash_message', 'ジャンルを変更しました');
     }
 
@@ -209,8 +212,6 @@ class TriviaController extends Controller
         $trivia = new CreateGenre();
         $trivia->genre = $request->genre;
         $trivia->save();
-
-        return redirect('/admin')->with('flash_message', 'ジャンルを作成しました');
     }
 
 

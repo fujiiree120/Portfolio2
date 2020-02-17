@@ -16,8 +16,18 @@
                 <p>
                     <textarea name="body" rows="4" cols="50"></textarea>
                 </p>
+                <p>雑学のジャンルを設定してください</p>
                 <p>
-                    <input type="submit" value="豆知識を投稿する" class="btn btn-primary">
+                <select name="genre_id">
+                    <option value=""></option>
+                    @forelse ( $genre as $value )
+                        <option value="{{ $value->id }}">{{ $value->genre }}</option>
+                    @empty
+                    @endforelse
+                </select>   
+                </p>
+                <p>
+                    <input type="submit" value="投稿する" class="btn btn-primary">
                 </p>
             </form>
         </div>
